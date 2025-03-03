@@ -2,21 +2,26 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PathGeneration : MonoBehaviour
+public class PathGenerator : AbstractGenerator
 {
     [SerializeField] int iterations;
     [SerializeField] int length;
     [SerializeField] bool random;
     [SerializeField] Vector2Int startPos = new Vector2Int(0, 0);
-    [SerializeField] TilemapVisualize tilemapVisualize;
-
-    public void Generate()
+    
+    
+    public override void Generate()
     {
-        HashSet<Vector2Int> pathPositions = RandomPath();
+        tilemapVisualize.Clear();
+        HashSet<Vector2Int> pathPositions = RandomPath(startPos);
+        foreach (Vector2Int pos in pathPositions)
+        {
+            Debug.Log(pos.ToString());
+        }
         tilemapVisualize.PaintPathTiles(pathPositions);
         EdgeGenerator.CreateEdges(pathPositions, tilemapVisualize);
     }
-    protected HashSet<Vector2Int> RandomPath()
+    protected HashSet<Vector2Int> RandomPath(Vector2Int startPos)
     {
         var currentPos = startPos;
         HashSet<Vector2Int> pathPositions = new HashSet<Vector2Int>();

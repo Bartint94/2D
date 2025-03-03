@@ -18,7 +18,7 @@ Material:
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 2993
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
@@ -48,7 +48,7 @@ Material:
     - _Cull: 2
     - _DstBlend: 10
     - _QueueControl: 0
-    - _QueueOffset: 0
+    - _QueueOffset: -7
     - _ReceiveShadows: 1
     - _SrcBlend: 1
     - _Surface: 1
@@ -56,6 +56,8 @@ Material:
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 1
+    - _angle: 11.34
+    - _cell: 19.28
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
