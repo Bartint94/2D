@@ -33,9 +33,13 @@ public static class ProceduralGeneration
         return corridor;
     }
 }
-
+public enum directions
+{
+    top, bottom, right, left,
+}
 public static class Directions
 {
+    
     public static List<Vector2Int> directionList = new List<Vector2Int>
     {
         new Vector2Int(0,1),

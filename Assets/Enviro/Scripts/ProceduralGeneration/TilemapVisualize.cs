@@ -8,7 +8,7 @@ using UnityEngine.Tilemaps;
 public class TilemapVisualize : MonoBehaviour
 {
     [SerializeField] Tilemap map;
-    [SerializeField] RuleTile tilePath, tileEdge;
+    [SerializeField] RuleTile tilePath, rightTileEdge, leftTileEdge, topTileEdge, botTileEdge;
     
     public int scale;
     private void Awake()
@@ -21,9 +21,21 @@ public class TilemapVisualize : MonoBehaviour
         PaintPathTiles(pathPositions, map, tilePath);
     }
 
-    internal void PaintEdgeTile(Vector2Int edge)
+    internal void PaintRightEdgeTile(Vector2Int edge)
     {
-        PaintSingleTile(map, edge, tileEdge);
+        PaintSingleTile(map, edge, rightTileEdge);
+    }
+    internal void PaintLeftEdgeTile(Vector2Int edge)
+    {
+        PaintSingleTile(map, edge, leftTileEdge);
+    }
+    internal void PaintTopEdgeTile(Vector2Int edge)
+    {
+        PaintSingleTile(map, edge, topTileEdge);
+    }
+    internal void PaintBotEdgeTile(Vector2Int edge)
+    {
+        PaintSingleTile(map, edge, botTileEdge);
     }
 
     private void PaintPathTiles(IEnumerable<Vector2Int> pathPositions, Tilemap map, RuleTile tile)
@@ -34,7 +46,7 @@ public class TilemapVisualize : MonoBehaviour
         }
     }
 
-    private void PaintSingleTile(Tilemap map, Vector2Int pos, RuleTile tile)
+    public void PaintSingleTile(Tilemap map, Vector2Int pos, RuleTile tile)
     {
         var tilePos = map.WorldToCell((Vector3Int)pos);
         

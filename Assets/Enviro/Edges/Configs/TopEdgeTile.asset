@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
-  m_Name: EdgeTile
+  m_Name: TopEdgeTile
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: 0}
-  m_DefaultGameObject: {fileID: 767773453394724604, guid: 54f490ecc05cd604eb8bfc74e93193a1, type: 3}
+  m_DefaultGameObject: {fileID: 9186715222497468211, guid: 655b0b649a30ce449ad3ff2182d4f6cb, type: 3}
   m_DefaultColliderType: 0
   m_TilingRules: []
