@@ -1,19 +1,23 @@
+using System;
 using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 {
-    [SerializeField] internal float speed;
+    [SerializeField] internal float sliedeSpeed;
     [SerializeField] internal float rotationSpeed;
-    internal float currentRotationVel;
 
+    [SerializeField] internal Transform visualObject;
+    [SerializeField] internal float fallSpeed;
 
 
     CharacterState currentState;
-    CharacterMovementState movementState;
-    [SerializeField] internal Transform visualObject;
+    internal CharacterMovementState movementState;
+    CharacterFallState fallState;
+
 
     private void Awake()
     {
+        fallState = GetComponent<CharacterFallState>();
         movementState = GetComponent<CharacterMovementState>();
     }
     private void OnEnable()
@@ -30,6 +34,7 @@ public class CharacterManager : MonoBehaviour
 
         currentState.OnUpdate();
     }
+   
     private void FixedUpdate()
     {
         if (!currentState) return;
@@ -42,5 +47,15 @@ public class CharacterManager : MonoBehaviour
             currentState.BeforeSwitch();
         currentState = nextState;
         currentState.Init();
+    }
+    public void Fall(Vector2 pos)
+    {
+        fallState.fallPos = pos;
+        SwitchState(fallState);
+    }
+
+    internal void GetCoin()
+    {
+        throw new NotImplementedException();
     }
 }

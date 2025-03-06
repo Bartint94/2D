@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class CorridorGenerateor : RoomGenerator
 {
-    [SerializeField] int corridorlength, corridorCount;
-    [SerializeField] [Range(.1f,1)]float roomPercent;
     public override void Generate()
     {
         tilemapEnviro.Clear();
@@ -31,7 +29,7 @@ public class CorridorGenerateor : RoomGenerator
     protected HashSet<Vector2Int> CreateRooms(HashSet<Vector2Int> potentialRoomPositions)
     {
         HashSet<Vector2Int> roomPositions = new HashSet<Vector2Int>();
-        int roomCount = Mathf.RoundToInt(potentialRoomPositions.Count * roomPercent);
+        int roomCount = Mathf.RoundToInt(potentialRoomPositions.Count * settings.roomPercent);
 
         List<Vector2Int> roomToCreate = potentialRoomPositions.OrderBy(x => Guid.NewGuid()).Take(roomCount).ToList();
 
@@ -47,9 +45,9 @@ public class CorridorGenerateor : RoomGenerator
     {
         var currentPosition = startPos;
         potentialRoomPositions.Add(currentPosition);
-        for (int i = 0; i < corridorCount; i++)
+        for (int i = 0; i < settings.CorridorCount(); i++)
         {
-            var corridor = ProceduralGeneration.RandomPathCorridor(currentPosition, corridorlength);
+            var corridor = ProceduralGeneration.RandomPathCorridor(currentPosition, settings.CorridorLength());
             currentPosition = corridor[corridor.Count - 1];
             potentialRoomPositions.Add(currentPosition);
             pathPositions.UnionWith(corridor);

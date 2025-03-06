@@ -5,7 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class InteractableGenerator : CorridorGenerateor
 {
-    
     public override void Generate()
     {
         tilemapEnviro.Clear();

@@ -2,7 +2,7 @@
 
 internal class CharacterMovementState : CharacterState
 {
-    public float rotation;
+    float rotation;
     public override void Init()
     {
         
@@ -25,8 +25,8 @@ internal class CharacterMovementState : CharacterState
 
     void Move()
     {
-        Vector2 dir = new Vector2(input.horizontal, input.vertical).normalized;// + transform.right * input.horizontal;
-        rb.linearVelocity += dir * manager.speed;
+        Vector2 dir = new Vector2(input.horizontal, input.vertical).normalized;
+        rb.linearVelocity += dir * manager.sliedeSpeed;
 
     }
     void Rotation()

@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class RoomGenerator : AbstractGenerator
 {
-    [SerializeField] int roomIterations;
-    [SerializeField] int roomLength;
-    [SerializeField] bool random;
-    
-    
-    
     public override void Generate()
     {
         tilemapEnviro.Clear();
@@ -25,11 +19,11 @@ public class RoomGenerator : AbstractGenerator
     {
         var currentPos = startPos;
         HashSet<Vector2Int> pathPositions = new HashSet<Vector2Int>();
-        for (int i = 0; i < roomIterations; i++)
+        for (int i = 0; i < settings.RoomIterations(); i++)
         {
-            var path = ProceduralGeneration.RandomPath(currentPos, roomLength);
+            var path = ProceduralGeneration.RandomPath(currentPos, settings.RoomLength());
             pathPositions.UnionWith(path);
-            if (random)
+            if (settings.random)
                 currentPos = pathPositions.ElementAt(Random.Range(0, pathPositions.Count));
 
         }
