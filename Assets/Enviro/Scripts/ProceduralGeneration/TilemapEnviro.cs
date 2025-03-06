@@ -5,37 +5,40 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TilemapVisualize : MonoBehaviour
+public class TilemapEnviro : MonoBehaviour
 {
-    [SerializeField] Tilemap map;
-    [SerializeField] RuleTile tilePath, rightTileEdge, leftTileEdge, topTileEdge, botTileEdge;
-    
-    public int scale;
-    private void Awake()
-    {
-        scale = (int)map.cellSize.magnitude;
-    }
+    [SerializeField] Tilemap staticMap, interactableMap;
+    [SerializeField] RuleTile tilePath, rightTileEdge, leftTileEdge, 
+        topTileEdge, botTileEdge, universalTileEdge, trap;
 
     public void PaintPathTiles(IEnumerable<Vector2Int> pathPositions)
     {
-        PaintPathTiles(pathPositions, map, tilePath);
+        PaintPathTiles(pathPositions, staticMap, tilePath);
+    }
+    internal void PaintUniversalEdgeTile(Vector2Int edge)
+    {
+        PaintSingleTile(staticMap, edge, universalTileEdge);
     }
 
     internal void PaintRightEdgeTile(Vector2Int edge)
     {
-        PaintSingleTile(map, edge, rightTileEdge);
+        PaintSingleTile(staticMap, edge, rightTileEdge);
     }
     internal void PaintLeftEdgeTile(Vector2Int edge)
     {
-        PaintSingleTile(map, edge, leftTileEdge);
+        PaintSingleTile(staticMap, edge, leftTileEdge);
     }
     internal void PaintTopEdgeTile(Vector2Int edge)
     {
-        PaintSingleTile(map, edge, topTileEdge);
+        PaintSingleTile(staticMap, edge, topTileEdge);
     }
     internal void PaintBotEdgeTile(Vector2Int edge)
     {
-        PaintSingleTile(map, edge, botTileEdge);
+        PaintSingleTile(staticMap, edge, botTileEdge);
+    }
+    public void PaintTrapTiles(IEnumerable<Vector2Int> pathPositions)
+    {
+        PaintPathTiles(pathPositions, interactableMap, trap);
     }
 
     private void PaintPathTiles(IEnumerable<Vector2Int> pathPositions, Tilemap map, RuleTile tile)
@@ -56,6 +59,6 @@ public class TilemapVisualize : MonoBehaviour
 
     internal void Clear()
     {
-        map.ClearAllTiles();
+        staticMap.ClearAllTiles();
     }
 }

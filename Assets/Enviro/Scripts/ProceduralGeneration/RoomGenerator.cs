@@ -2,32 +2,32 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PathGenerator : AbstractGenerator
+public class RoomGenerator : AbstractGenerator
 {
-    [SerializeField] int iterations;
-    [SerializeField] int length;
+    [SerializeField] int roomIterations;
+    [SerializeField] int roomLength;
     [SerializeField] bool random;
-    [SerializeField] Vector2Int startPos = new Vector2Int(0, 0);
+    
     
     
     public override void Generate()
     {
-        tilemapVisualize.Clear();
+        tilemapEnviro.Clear();
         HashSet<Vector2Int> pathPositions = RandomPath(startPos);
         foreach (Vector2Int pos in pathPositions)
         {
             Debug.Log(pos.ToString());
         }
-        tilemapVisualize.PaintPathTiles(pathPositions);
-        EdgeGenerator.CreateEdges(pathPositions, tilemapVisualize);
+        tilemapEnviro.PaintPathTiles(pathPositions);
+        EdgeGenerator.CreateEdges(pathPositions, tilemapEnviro);
     }
     protected HashSet<Vector2Int> RandomPath(Vector2Int startPos)
     {
         var currentPos = startPos;
         HashSet<Vector2Int> pathPositions = new HashSet<Vector2Int>();
-        for (int i = 0; i < iterations; i++)
+        for (int i = 0; i < roomIterations; i++)
         {
-            var path = ProceduralGeneration.RandomPath(currentPos, length);
+            var path = ProceduralGeneration.RandomPath(currentPos, roomLength);
             pathPositions.UnionWith(path);
             if (random)
                 currentPos = pathPositions.ElementAt(Random.Range(0, pathPositions.Count));

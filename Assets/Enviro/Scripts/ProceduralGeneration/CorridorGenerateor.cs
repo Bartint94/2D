@@ -4,18 +4,18 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CorridorGenerateor : PathGenerator
+public class CorridorGenerateor : RoomGenerator
 {
-    [SerializeField] int corridorlength, count;
+    [SerializeField] int corridorlength, corridorCount;
     [SerializeField] [Range(.1f,1)]float roomPercent;
     public override void Generate()
     {
+        tilemapEnviro.Clear();
         CorridorGeneration();
     }
 
     private void CorridorGeneration()
     {
-        tilemapVisualize.Clear();
         HashSet<Vector2Int> pathPositions = new HashSet<Vector2Int>();
         HashSet<Vector2Int> potentialRoomPositions = new HashSet<Vector2Int>();
         
@@ -24,11 +24,11 @@ public class CorridorGenerateor : PathGenerator
         HashSet<Vector2Int> roomPositions = CreateRooms(potentialRoomPositions);
 
         pathPositions.UnionWith(roomPositions);
-        tilemapVisualize.PaintPathTiles(pathPositions);
-        EdgeGenerator.CreateEdges(pathPositions, tilemapVisualize);
+        tilemapEnviro.PaintPathTiles(pathPositions);
+        EdgeGenerator.CreateEdges(pathPositions, tilemapEnviro);
     }
 
-    private HashSet<Vector2Int> CreateRooms(HashSet<Vector2Int> potentialRoomPositions)
+    protected HashSet<Vector2Int> CreateRooms(HashSet<Vector2Int> potentialRoomPositions)
     {
         HashSet<Vector2Int> roomPositions = new HashSet<Vector2Int>();
         int roomCount = Mathf.RoundToInt(potentialRoomPositions.Count * roomPercent);
@@ -43,11 +43,11 @@ public class CorridorGenerateor : PathGenerator
         return roomPositions;
     }
 
-    private void CreateCorridors(HashSet<Vector2Int> pathPositions, HashSet<Vector2Int> potentialRoomPositions)
+    protected void CreateCorridors(HashSet<Vector2Int> pathPositions, HashSet<Vector2Int> potentialRoomPositions)
     {
-        var currentPosition = startPosition;
+        var currentPosition = startPos;
         potentialRoomPositions.Add(currentPosition);
-        for (int i = 0; i < corridorlength; i++)
+        for (int i = 0; i < corridorCount; i++)
         {
             var corridor = ProceduralGeneration.RandomPathCorridor(currentPosition, corridorlength);
             currentPosition = corridor[corridor.Count - 1];

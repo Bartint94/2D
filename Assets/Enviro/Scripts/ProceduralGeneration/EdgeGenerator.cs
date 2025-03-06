@@ -4,16 +4,18 @@ using UnityEngine;
 
 public static class EdgeGenerator
 {
-    public static void CreateEdges(HashSet<Vector2Int> pathPositions, TilemapVisualize tileVisualize)
+    public static void CreateEdges(HashSet<Vector2Int> pathPositions, TilemapEnviro tileVisualize)
     {
-        /* var edgePositions = FindEdgesInDirections(pathPositions, Directions.directionList);
+         var edgePositions = FindEdgesInDirections(pathPositions, Directions.cardinalDirectionList);
          foreach (var edge in edgePositions)
          {
-             tileVisualize.PaintRightEdgeTile(edge);
+             tileVisualize.PaintUniversalEdgeTile(edge);
          }
-         HashSet<Vector2Int> edgePositions = new HashSet<Vector2Int>();
-        */
-        List<Vector2Int> directionList = Directions.directionList;
+         
+    }
+    private static void PlaceCardinaEdges(HashSet<Vector2Int> pathPositions, TilemapEnviro tileEnviro)
+    {
+        List<Vector2Int> directionList = Directions.cardinalDirectionList;
         foreach (var position in pathPositions)
         {
             for (int i = 0; i < directionList.Count; i++)
@@ -22,20 +24,16 @@ public static class EdgeGenerator
                 if (!pathPositions.Contains(neighbourPos))
                 {
                     if (i == (int)directions.right)
-                        tileVisualize.PaintRightEdgeTile(neighbourPos);
+                        tileEnviro.PaintRightEdgeTile(neighbourPos);
                     if (i == (int)directions.left)
-                        tileVisualize.PaintLeftEdgeTile(neighbourPos);
+                        tileEnviro.PaintLeftEdgeTile(neighbourPos);
                     if (i == (int)directions.top)
-                        tileVisualize.PaintTopEdgeTile(neighbourPos);
+                        tileEnviro.PaintTopEdgeTile(neighbourPos);
                     if (i == (int)directions.bottom)
-                        tileVisualize.PaintBotEdgeTile(neighbourPos);
-
-                    //edgePositions.Add(neighbourPos);
+                        tileEnviro.PaintBotEdgeTile(neighbourPos);
                 }
             }
         }
-        //return edgePositions;
-
     }
 
     private static HashSet<Vector2Int> FindEdgesInDirections(HashSet<Vector2Int> pathPositions, List<Vector2Int> directionList)
@@ -48,7 +46,6 @@ public static class EdgeGenerator
                 var neighbourPos = position + directionList[i];
                 if(!pathPositions.Contains(neighbourPos))
                 {
-                    if( i == (int)directions.right)
                     edgePositions.Add(neighbourPos);
                 }
             }

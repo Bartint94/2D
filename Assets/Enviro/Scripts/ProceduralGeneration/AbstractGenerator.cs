@@ -1,11 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class AbstractGenerator : MonoBehaviour
 {
-    [SerializeField] protected TilemapVisualize tilemapVisualize;
-    [SerializeField] protected Vector2Int startPosition = Vector2Int.zero;
+    [SerializeField] protected TilemapEnviro tilemapEnviro;
+    [SerializeField] protected Vector2Int startPos = Vector2Int.zero;
 
     public abstract void Generate();
+   
     
 
 }
