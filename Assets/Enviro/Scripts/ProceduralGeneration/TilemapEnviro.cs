@@ -9,7 +9,7 @@ public class TilemapEnviro : MonoBehaviour
 {
     [SerializeField] Tilemap staticMap, interactableMap;
     [SerializeField] RuleTile tilePath, rightTileEdge, leftTileEdge, 
-        topTileEdge, botTileEdge, universalTileEdge, trap;
+        topTileEdge, botTileEdge, universalTileEdge, trapTile, goldCoinTile, silverCoinTile;
 
     public void PaintPathTiles(IEnumerable<Vector2Int> pathPositions)
     {
@@ -38,7 +38,15 @@ public class TilemapEnviro : MonoBehaviour
     }
     public void PaintTrapTiles(IEnumerable<Vector2Int> pathPositions)
     {
-        PaintPathTiles(pathPositions, interactableMap, trap);
+        PaintPathTiles(pathPositions, interactableMap, trapTile);
+    }
+    internal void PaintSilverTile(Vector2Int pos)
+    {
+        PaintSingleTile(interactableMap, pos, silverCoinTile);
+    }
+    public void PaintGoldCoinTile(Vector2Int pos)
+    {
+        PaintSingleTile(interactableMap, pos, goldCoinTile);
     }
 
     private void PaintPathTiles(IEnumerable<Vector2Int> pathPositions, Tilemap map, RuleTile tile)
@@ -62,4 +70,5 @@ public class TilemapEnviro : MonoBehaviour
         staticMap.ClearAllTiles();
         interactableMap.ClearAllTiles();
     }
+
 }

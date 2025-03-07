@@ -6,7 +6,7 @@ internal class CharacterFallState : CharacterState
     public override void BeforeSwitch()
     {
         manager.visualObject.localScale = Vector3.one;
-        manager.transform.position = Vector3.zero;
+        manager.ResetPosition();
         rb.simulated = true;
     }
 

@@ -9,25 +9,33 @@ public class CharacterManager : MonoBehaviour
     [SerializeField] internal Transform visualObject;
     [SerializeField] internal float fallSpeed;
 
+    [SerializeField] internal GameplayManager gameplayManager;
 
     CharacterState currentState;
     internal CharacterMovementState movementState;
     CharacterFallState fallState;
 
+    Vector2 startPos = new Vector2(.5f, .5f);
 
     private void Awake()
     {
+
         fallState = GetComponent<CharacterFallState>();
         movementState = GetComponent<CharacterMovementState>();
     }
     private void OnEnable()
     {
         SwitchState(movementState);
+        ResetPosition();
+        gameplayManager.OnLevelUp += ResetPosition;
+        gameplayManager.OnExitGameplay += OnExit;
     }
-    void Start()
+    private void OnDisable()
     {
-        
+        gameplayManager.OnLevelUp -= ResetPosition;
+        gameplayManager.OnExitGameplay -= OnExit;
     }
+   
     void Update()
     {
         if (!currentState) return;
@@ -50,12 +58,24 @@ public class CharacterManager : MonoBehaviour
     }
     public void Fall(Vector2 pos)
     {
+        gameplayManager.Fall();
         fallState.fallPos = pos;
         SwitchState(fallState);
     }
 
-    internal void GetCoin()
+    internal void GetCoin(CoinType type)
     {
-        throw new NotImplementedException();
+        gameplayManager.GetPoints(type);
     }
+
+    public void ResetPosition()
+    {
+        transform.position = startPos;
+    }
+    void OnExit()
+    {
+        enabled = false;
+    }
+
+   
 }

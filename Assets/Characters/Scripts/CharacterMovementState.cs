@@ -5,7 +5,8 @@ internal class CharacterMovementState : CharacterState
     float rotation;
     public override void Init()
     {
-        
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0;
     }
 
     public override void OnUpdate()

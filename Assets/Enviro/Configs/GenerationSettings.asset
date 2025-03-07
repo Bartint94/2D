@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b24eae3f441512c45b8610b658029053, type: 3}
   m_Name: GenerationSettings
   m_EditorClassIdentifier: 
-  startRoomIterations: 10
+  currentLevel: 1
+  startRoomIterations: 12
   startRoomLength: 10
   random: 1
-  startCorridorLength: 3
-  startCorridorCount: 2
-  roomPercent: 0.916
-  currentLevel: 1
+  startCorridorLength: 4
+  startCorridorCount: 3
+  roomPercent: 0.862
   roomIterationCurve:
     serializedVersion: 2
     m_Curve:
@@ -115,3 +115,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  potentialTrapPositionsDivide: 10
+  potentialCoinPositionsDivide: 10
+  GoldCoinRarity: 4
